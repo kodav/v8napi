@@ -6,11 +6,11 @@ unit v8napi_x64;
 // qxlreport@mail.ru    //
 //////////////////////////
 
-//16.12.2015 имена свойств и методов теперь без учета регистра букв
-//06.10.2015 исправлена ошибка. сообщение "некорректная работа компоненты с памятью"
-//16.10.2012 внесены небольшие изменения. добавлены функции для типа Uint
-//29.09.2012 внесены небольшие изменения. теперь работает на x64
-//04.04.2011 исправлена ошибка с датами
+//16.12.2015 ГЁГ¬ГҐГ­Г  Г±ГўГ®Г©Г±ГІГў ГЁ Г¬ГҐГІГ®Г¤Г®Гў ГІГҐГЇГҐГ°Гј ГЎГҐГ§ ГіГ·ГҐГІГ  Г°ГҐГЈГЁГ±ГІГ°Г  ГЎГіГЄГў
+//06.10.2015 ГЁГ±ГЇГ°Г ГўГ«ГҐГ­Г  Г®ГёГЁГЎГЄГ . Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г Гї Г°Г ГЎГ®ГІГ  ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ» Г± ГЇГ Г¬ГїГІГјГѕ"
+//16.10.2012 ГўГ­ГҐГ±ГҐГ­Г» Г­ГҐГЎГ®Г«ГјГёГЁГҐ ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГї. Г¤Г®ГЎГ ГўГ«ГҐГ­Г» ГґГіГ­ГЄГ¶ГЁГЁ Г¤Г«Гї ГІГЁГЇГ  Uint
+//29.09.2012 ГўГ­ГҐГ±ГҐГ­Г» Г­ГҐГЎГ®Г«ГјГёГЁГҐ ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГї. ГІГҐГЇГҐГ°Гј Г°Г ГЎГ®ГІГ ГҐГІ Г­Г  x64
+//04.04.2011 ГЁГ±ГЇГ°Г ГўГ«ГҐГ­Г  Г®ГёГЁГЎГЄГ  Г± Г¤Г ГІГ Г¬ГЁ
 
 
 interface
@@ -124,7 +124,7 @@ type
   end;
 
 type
-  TV8MemoryManager = class //IMemoryManager см. документацию от 1С
+  TV8MemoryManager = class //IMemoryManager Г±Г¬. Г¤Г®ГЄГіГ¬ГҐГ­ГІГ Г¶ГЁГѕ Г®ГІ 1Г‘
   public
     procedure Destroy1; virtual; abstract;
     function AllocMemory(pMemory: PPointer; ulCountByte: longword): boolean; virtual; stdcall; abstract;
@@ -132,7 +132,7 @@ type
   end;
 
 type
-  TV8AddInDefBase = class //IAddInDefBase см. документацию от 1С
+  TV8AddInDefBase = class //IAddInDefBase Г±Г¬. Г¤Г®ГЄГіГ¬ГҐГ­ГІГ Г¶ГЁГѕ Г®ГІ 1Г‘
   public
     procedure Destroy1; virtual; abstract;
     function AddError(wcode: word; const source: PWideChar;
@@ -260,43 +260,43 @@ type
     V8: TV8AddInDefBase;
     locale: WideString;
 
-    //Очищает переменную V8Variant
-    //Если переменная V8Variant имела длинное значение (строка или blob), то
-    //память, занятая этой переменной освобождается менеджером памяти 1С
+    //ГЋГ·ГЁГ№Г ГҐГІ ГЇГҐГ°ГҐГ¬ГҐГ­Г­ГіГѕ V8Variant
+    //Г…Г±Г«ГЁ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї V8Variant ГЁГ¬ГҐГ«Г  Г¤Г«ГЁГ­Г­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ (Г±ГІГ°Г®ГЄГ  ГЁГ«ГЁ blob), ГІГ®
+    //ГЇГ Г¬ГїГІГј, Г§Г Г­ГїГІГ Гї ГЅГІГ®Г© ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© Г®Г±ГўГ®ГЎГ®Г¦Г¤Г ГҐГІГ±Гї Г¬ГҐГ­ГҐГ¤Г¦ГҐГ°Г®Г¬ ГЇГ Г¬ГїГІГЁ 1Г‘
     procedure V8ClearVar(V: PV8Variant);
 
-    //Копирует переменную V8Variant
+    //ГЉГ®ГЇГЁГ°ГіГҐГІ ГЇГҐГ°ГҐГ¬ГҐГ­Г­ГіГѕ V8Variant
     procedure V8CopyVar(Source: PV8Variant; Dest: PV8Variant);
 
-    //Функции устанавливают значения коротких типов переменной V8Variant.
-    //Перед установкой значения переменная V8Variant очищается.
-    //Если переменная V8Variant имела длинное значение (строка или blob), то
-    //память, занятая этой переменной освобождается менеджером памяти 1С.
+    //Г”ГіГ­ГЄГ¶ГЁГЁ ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГѕГІ Г§Г­Г Г·ГҐГ­ГЁГї ГЄГ®Г°Г®ГІГЄГЁГµ ГІГЁГЇГ®Гў ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© V8Variant.
+    //ГЏГҐГ°ГҐГ¤ ГіГ±ГІГ Г­Г®ГўГЄГ®Г© Г§Г­Г Г·ГҐГ­ГЁГї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї V8Variant Г®Г·ГЁГ№Г ГҐГІГ±Гї.
+    //Г…Г±Г«ГЁ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї V8Variant ГЁГ¬ГҐГ«Г  Г¤Г«ГЁГ­Г­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ (Г±ГІГ°Г®ГЄГ  ГЁГ«ГЁ blob), ГІГ®
+    //ГЇГ Г¬ГїГІГј, Г§Г Г­ГїГІГ Гї ГЅГІГ®Г© ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© Г®Г±ГўГ®ГЎГ®Г¦Г¤Г ГҐГІГ±Гї Г¬ГҐГ­ГҐГ¤Г¦ГҐГ°Г®Г¬ ГЇГ Г¬ГїГІГЁ 1Г‘.
     procedure V8SetBool(V: PV8Variant; Value: boolean);
     procedure V8SetDate(V: PV8Variant; Value: TDateTime);
     procedure V8SetInt(V: PV8Variant; Value: integer);
     procedure V8SetUInt(V: PV8Variant; Value: longword);
     procedure V8SetDouble(V: PV8Variant; Value: double);
 
-    //Функции станавливают значение переменной V8Variant строкового типа или blob
-    //Перед установкой значения переменная V8Variant очищается.
-    //Если переменная V8Variant имела длинное значение (строка или blob), то
-    //память, занятая этой переменной, освобождается менеджером памяти 1С.
-    //Память под значение переменной выделяется менеджером памяти 1С.
+    //Г”ГіГ­ГЄГ¶ГЁГЁ Г±ГІГ Г­Г ГўГ«ГЁГўГ ГѕГІ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© V8Variant Г±ГІГ°Г®ГЄГ®ГўГ®ГЈГ® ГІГЁГЇГ  ГЁГ«ГЁ blob
+    //ГЏГҐГ°ГҐГ¤ ГіГ±ГІГ Г­Г®ГўГЄГ®Г© Г§Г­Г Г·ГҐГ­ГЁГї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї V8Variant Г®Г·ГЁГ№Г ГҐГІГ±Гї.
+    //Г…Г±Г«ГЁ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї V8Variant ГЁГ¬ГҐГ«Г  Г¤Г«ГЁГ­Г­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ (Г±ГІГ°Г®ГЄГ  ГЁГ«ГЁ blob), ГІГ®
+    //ГЇГ Г¬ГїГІГј, Г§Г Г­ГїГІГ Гї ГЅГІГ®Г© ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г©, Г®Г±ГўГ®ГЎГ®Г¦Г¤Г ГҐГІГ±Гї Г¬ГҐГ­ГҐГ¤Г¦ГҐГ°Г®Г¬ ГЇГ Г¬ГїГІГЁ 1Г‘.
+    //ГЏГ Г¬ГїГІГј ГЇГ®Г¤ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© ГўГ»Г¤ГҐГ«ГїГҐГІГ±Гї Г¬ГҐГ­ГҐГ¤Г¦ГҐГ°Г®Г¬ ГЇГ Г¬ГїГІГЁ 1Г‘.
     function V8AllocWideString(W: WideString): PWideChar;
     function V8SetWString(V: PV8Variant; Value: WideString): boolean;
     function V8SetString(V: PV8Variant; Value: AnsiString): boolean;
     function V8SetPChar(V: PV8Variant; Value: PAnsiChar): boolean;
     function V8SetBlob(V: PV8Variant; Value: PByte; Length: integer): boolean;
 
-    function Init: boolean; virtual; // можно override вызывается из v8wrap
-    function GetInfo: integer; virtual; // можно override вызывается из v8wrap
-    procedure SetLocale; virtual; // можно override вызывается из v8wrap
-    procedure Done; virtual; // можно override вызывается из v8wrap
-    function SetMemManager: boolean; virtual; //можно override вызывается из v8wrap
+    function Init: boolean; virtual; // Г¬Г®Г¦Г­Г® override ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГЁГ§ v8wrap
+    function GetInfo: integer; virtual; // Г¬Г®Г¦Г­Г® override ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГЁГ§ v8wrap
+    procedure SetLocale; virtual; // Г¬Г®Г¦Г­Г® override ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГЁГ§ v8wrap
+    procedure Done; virtual; // Г¬Г®Г¦Г­Г® override ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГЁГ§ v8wrap
+    function SetMemManager: boolean; virtual; //Г¬Г®Г¦Г­Г® override ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГЁГ§ v8wrap
 
-    constructor Create; virtual; // можно override
-    destructor Destroy; override; // можно override
+    constructor Create; virtual; // Г¬Г®Г¦Г­Г® override
+    destructor Destroy; override; // Г¬Г®Г¦Г­Г® override
   end;
 
   TV8UserClass = class of TV8UserObject;
@@ -313,48 +313,48 @@ function AsInteger(V: PV8Variant): integer;
 function AsUInteger(V: PV8Variant): Uint;
 function AsDouble(V: PV8Variant): double;
 
-//Функции группы V8is проверяют переменную типа V8Variant
-//на соответствие определенному типу
-function V8isEmpty(V: PV8Variant): boolean; //Переменная пуста
-function V8isNULL(V: PV8Variant): boolean; //Переменная NULL
-function V8isNumber(V: PV8Variant): boolean; //целое или вещественное число, код ошибки
+//Г”ГіГ­ГЄГ¶ГЁГЁ ГЈГ°ГіГЇГЇГ» V8is ГЇГ°Г®ГўГҐГ°ГїГѕГІ ГЇГҐГ°ГҐГ¬ГҐГ­Г­ГіГѕ ГІГЁГЇГ  V8Variant
+//Г­Г  Г±Г®Г®ГІГўГҐГІГ±ГІГўГЁГҐ Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г®Г¬Гі ГІГЁГЇГі
+function V8isEmpty(V: PV8Variant): boolean; //ГЏГҐГ°ГҐГ¬ГҐГ­Г­Г Гї ГЇГіГ±ГІГ 
+function V8isNULL(V: PV8Variant): boolean; //ГЏГҐГ°ГҐГ¬ГҐГ­Г­Г Гї NULL
+function V8isNumber(V: PV8Variant): boolean; //Г¶ГҐГ«Г®ГҐ ГЁГ«ГЁ ГўГҐГ№ГҐГ±ГІГўГҐГ­Г­Г®ГҐ Г·ГЁГ±Г«Г®, ГЄГ®Г¤ Г®ГёГЁГЎГЄГЁ
 function V8isString(V: PV8Variant): boolean;
 function V8isWString(V: PV8Variant): boolean; //WideString
 function V8isAString(V: PV8Variant): boolean; //AnsiString
 function V8isBlob(V: PV8Variant): boolean;
-function V8isDate(V: PV8Variant): boolean; //ДатаВремя (VTYPE_DATE или VTYPE_TM)
+function V8isDate(V: PV8Variant): boolean; //Г„Г ГІГ Г‚Г°ГҐГ¬Гї (VTYPE_DATE ГЁГ«ГЁ VTYPE_TM)
 function V8isBool(V: PV8Variant): boolean;
 
-//Возвращает значение из V8Variant,
-//если значение не соответствует типу, возвращает ноль
-function V8AsInt(V: PV8Variant): integer; //тип Double возвращается как целая часть
-function V8AsUInt(V: PV8Variant): Uint; //тип Double возвращается как целая часть
-function V8AsDouble(V: PV8Variant): double; //тип integer возвращается как Double
+//Г‚Г®Г§ГўГ°Г Г№Г ГҐГІ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЁГ§ V8Variant,
+//ГҐГ±Г«ГЁ Г§Г­Г Г·ГҐГ­ГЁГҐ Г­ГҐ Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГҐГІ ГІГЁГЇГі, ГўГ®Г§ГўГ°Г Г№Г ГҐГІ Г­Г®Г«Гј
+function V8AsInt(V: PV8Variant): integer; //ГІГЁГЇ Double ГўГ®Г§ГўГ°Г Г№Г ГҐГІГ±Гї ГЄГ ГЄ Г¶ГҐГ«Г Гї Г·Г Г±ГІГј
+function V8AsUInt(V: PV8Variant): Uint; //ГІГЁГЇ Double ГўГ®Г§ГўГ°Г Г№Г ГҐГІГ±Гї ГЄГ ГЄ Г¶ГҐГ«Г Гї Г·Г Г±ГІГј
+function V8AsDouble(V: PV8Variant): double; //ГІГЁГЇ integer ГўГ®Г§ГўГ°Г Г№Г ГҐГІГ±Гї ГЄГ ГЄ Double
 
-//Возвращает значение типа ДатаВремя из V8Variant типа
-//  дата (VTYPE_DATE,VTYPE_TM) или Double
-//если значение не соответствует типу, возвращает ноль
+//Г‚Г®Г§ГўГ°Г Г№Г ГҐГІ Г§Г­Г Г·ГҐГ­ГЁГҐ ГІГЁГЇГ  Г„Г ГІГ Г‚Г°ГҐГ¬Гї ГЁГ§ V8Variant ГІГЁГЇГ 
+//  Г¤Г ГІГ  (VTYPE_DATE,VTYPE_TM) ГЁГ«ГЁ Double
+//ГҐГ±Г«ГЁ Г§Г­Г Г·ГҐГ­ГЁГҐ Г­ГҐ Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГҐГІ ГІГЁГЇГі, ГўГ®Г§ГўГ°Г Г№Г ГҐГІ Г­Г®Г«Гј
 function V8AsDate(V: PV8Variant): TDateTime;
 
-//Возвращает значение типа boolean из V8Variant,
-//если значение не соответствует типу, возвращает False
+//Г‚Г®Г§ГўГ°Г Г№Г ГҐГІ Г§Г­Г Г·ГҐГ­ГЁГҐ ГІГЁГЇГ  boolean ГЁГ§ V8Variant,
+//ГҐГ±Г«ГЁ Г§Г­Г Г·ГҐГ­ГЁГҐ Г­ГҐ Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГҐГІ ГІГЁГЇГі, ГўГ®Г§ГўГ°Г Г№Г ГҐГІ False
 function V8AsBool(V: PV8Variant): boolean;
 
-//Возвращает указатели на значения типов Blob, AnsiChar, WideChar из V8Variant,
-//если значение не соответствует типу, возвращает nil
+//Г‚Г®Г§ГўГ°Г Г№Г ГҐГІ ГіГЄГ Г§Г ГІГҐГ«ГЁ Г­Г  Г§Г­Г Г·ГҐГ­ГЁГї ГІГЁГЇГ®Гў Blob, AnsiChar, WideChar ГЁГ§ V8Variant,
+//ГҐГ±Г«ГЁ Г§Г­Г Г·ГҐГ­ГЁГҐ Г­ГҐ Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГҐГІ ГІГЁГЇГі, ГўГ®Г§ГўГ°Г Г№Г ГҐГІ nil
 function V8AsPWideChar(V: PV8Variant): PWideChar;
 function V8AsWString(V: PV8Variant): WideString;
 function V8AsPChar(V: PV8Variant): PAnsiChar;
 function V8AsBlob(V: PV8Variant): PByte;
 
-//Возвращает значения типов AnsiString и WideString из V8Variant
-//в виде строки AnsiString
+//Г‚Г®Г§ГўГ°Г Г№Г ГҐГІ Г§Г­Г Г·ГҐГ­ГЁГї ГІГЁГЇГ®Гў AnsiString ГЁ WideString ГЁГ§ V8Variant
+//Гў ГўГЁГ¤ГҐ Г±ГІГ°Г®ГЄГЁ AnsiString
 function V8AsAString(V: PV8Variant): AnsiString;
 
-//Длина переменной для типов Blob, AnsiString, WideString
+//Г„Г«ГЁГ­Г  ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© Г¤Г«Гї ГІГЁГЇГ®Гў Blob, AnsiString, WideString
 function V8StrLen(V: PV8Variant): integer;
 
-//Возвращает, в виде строки, тип значения переменной V8Variant
+//Г‚Г®Г§ГўГ°Г Г№Г ГҐГІ, Гў ГўГЁГ¤ГҐ Г±ГІГ°Г®ГЄГЁ, ГІГЁГЇ Г§Г­Г Г·ГҐГ­ГЁГї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© V8Variant
 function V8VarTypeStr(V: PV8Variant): AnsiString;
 
 
@@ -429,7 +429,7 @@ begin
   result := StrLen(V);
 end;
 
-//вызыватся из v8wrap. используется в FindProp и FindMethod
+//ГўГ»Г§Г»ГўГ ГІГ±Гї ГЁГ§ v8wrap. ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГ±Гї Гў FindProp ГЁ FindMethod
 
 function _WideSameStr(const S1, S2: WideString): boolean;
 begin
@@ -598,15 +598,28 @@ end;
 
 function _GetParamDefValue(Obj: PV8ObjectRec; const lMethodNum,
   lParamNum: integer; pvarParamDefValue: PV8Variant): boolean; stdcall;
+var
+  i: Integer;
+  Defs: TDefParamList;
 begin
-  result := True;
-  pvarParamDefValue^.vt := VTYPE_EMPTY;
-  if Obj.RelObj1.ClassReg.MethList[lMethodNum].DefParams <> nil then
+  // РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ: Р·РЅР°С‡РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РќР•Рў
+  Result := False;
+  if pvarParamDefValue <> nil then
+    pvarParamDefValue^.vt := VTYPE_EMPTY;
+
+  Defs := Obj.RelObj1.ClassReg.MethList[lMethodNum].DefParams;
+  if Defs = nil then
+    Exit;
+
+  // Р’ DefParams.Values Р»РµР¶Р°С‚ РїР°СЂС‹ (Num, Value), Num = РЅРѕРјРµСЂ РїР°СЂР°РјРµС‚СЂР° (РєР°Рє РїСЂРёС…РѕРґРёС‚ РѕС‚ РїР»Р°С‚С„РѕСЂРјС‹)
+  for i := 0 to High(Defs.Values) do
   begin
-    if High(Obj.RelObj1.ClassReg.MethList[lMethodNum]
-      .DefParams.Values) <= lParamNum then
-      Obj.RelObj1.V8CopyVar(@Obj.RelObj1.ClassReg.MethList[lMethodNum].DefParams.Values[lParamNum].Value, pvarParamDefValue);
-    result := True;
+    if Defs.Values[i].Num = lParamNum then
+    begin
+      Obj.RelObj1.V8CopyVar(@Defs.Values[i].Value, pvarParamDefValue);
+      Result := True;
+      Exit;
+    end;
   end;
 end;
 
